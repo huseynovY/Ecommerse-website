@@ -1,0 +1,5 @@
+.product-image {
+    height: 250px; /* Set the desired height for all images */
+    width: auto; /* Automatically adjust the width to maintain aspect ratio */
+    display: block; /* Ensures proper spacing and alignment */
+}

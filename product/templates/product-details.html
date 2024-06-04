@@ -1,0 +1,217 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({% static 'images/bg/2.jpg' %}) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">{{ product.title }}</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">Product Details</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Product Details -->
+        <section class="htc__product__details pt--120 pb--100 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="product__details__container">
+                            <!-- Start Small images -->
+                            
+                            <ul class="product__small__images" role="tablist">
+                                {% for image in product.images.all %}
+                                <li role="presentation" class="pot-small-img active">
+                                    <a href="#img-tab-1" role="tab" data-toggle="tab">
+                                        <img src={{ image.image.url }} alt="small-image" style="width: 200px;">
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <!-- End Small images -->
+                            <div class="product__big__images">
+                                <div class="portfolio-full-image tab-content">
+                                    
+                                    <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-1">
+                                        <img src={{ product.image.url }} alt="full-image">  
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
+                        <div class="htc__product__details__inner">
+                            <div class="pro__detl__title">
+                                <h2>{{ product.title }}</h2>
+                            </div>
+                            <div class="pro__details">
+                                <p>{{ product.smalldescription }}</p>
+                            </div>
+                            <ul class="pro__dtl__prize">
+                                
+                                <li>${{ product.price }}</li>
+                            </ul>
+                            <div class="pro__dtl__color">
+                                <h2 class="title__5">Choose Colour</h2>
+                                <ul class="pro__choose__color">
+                                    {% for color in product.color.all %}
+                                    <li class={{ color.product }} ><a href="#" ><i class="zmdi zmdi-circle" style="color: {{ color.hex_code }};"></i></a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="pro__dtl__size">
+                                <h2 class="title__5">Size</h2>
+                                <ul class="pro__choose__size">
+                                    {% for size in product.size.all %}
+                                    <li><a href="#">{{ size.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="product-action-wrap">
+                                <div class="prodict-statas"><span>Quantity :</span></div>
+                                <div class="product-quantity">
+                                    <form id='myform' method='POST' action='#'>
+                                        <div class="product-quantity">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <ul class="pro__dtl__btn">
+                                <li data-product="{{product.id}}" ><a title="Add TO Cart" data-product="{{product.id}}" class="addToCart"><span data-product="{{product.id}}" class="ti-shopping-cart"></span></a></li>
+                                <li data-product="{{product.id}}" ><a title="Add TO Wishlist" data-product="{{product.id}}" class="addToWishlist"><span data-product="{{product.id}}" class="ti-heart"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product Details -->
+        <!-- Start Product tab -->
+        <section class="htc__product__details__tab bg__white pb--120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#description" role="tab" data-toggle="tab">Description</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#reviews" role="tab" data-toggle="tab">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product__details__tab__content">
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="description" class="product__tab__content fade in active">
+                                <div class="product__description__wrap">
+                                    <div class="product__desc">
+                                        <h2 class="title__6">Details</h2>
+                                        <p>{{ product.description }}</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="reviews" class="product__tab__content fade">
+                                <div class="review__address__inner">
+                                    <!-- Start Single Review -->
+                                    {% for review in product.comment.all %}
+                                    {%  if not comment.parent %}
+                                    <div class="pro__review">
+                                        <div class="review__thumb">
+                                            <img src="{{ review.user.get_image }}" alt="review images" style="width: 100px;">
+                                        </div>
+                                        <div class="review__details">
+                                            <div class="review__info">
+                                                <h4><a href="#">{{ review.user.get_full_name }}</a></h4>
+                                                
+                                            </div>
+                                            <div class="review__date">
+                                                <span>{{ review.created_at }}</span>
+                                            </div>
+                                            <p>{{ review.message }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Review -->
+                                    <!-- Start Single Review -->
+                                    {% for proreview in comment.children.all %}
+                                    <div class="pro__review ans">
+                                        <div class="review__thumb">
+                                            <img src="{{ proreview.user.get_image }}" alt="review images">
+                                        </div>
+                                        <div class="review__details">
+                                            <div class="review__info">
+                                                <h4><a href="#">{{ proreview.user.get_full_name }}</a></h4>
+                                            </div>
+                                            <div class="review__date">
+                                                <span>{{ proreview.created_at }}</span>
+                                            </div>
+                                            <p>{{ proreview.message }}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                    <!-- End Single Review -->
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                <!-- Start RAting Area -->
+                                <div class="rating__wrap">
+                                    <h2 class="rating-title">Write  A review</h2>
+                                    <div class="rating__list">
+                                        <!-- Start Single List -->
+                                        <!-- End Single List -->
+                                    </div>
+                                </div>
+                                <!-- End RAting Area -->
+                                {% if request.user.is_authenticated %}
+                                <div class="review__box">
+                                    <form method="post" id="review-form">
+                                        <div class="single-review-form">
+                                            {% csrf_token %}
+                                            <div class="review-box name">
+                                                {{ form.message }}
+                                            </div>
+                                        </div>
+                                        <div class="review-btn">
+                                            <input type="submit" value="Send">
+                                        </div>
+                                    </form>                                
+                                </div>
+                                {% else %}
+                                <form action="action_page.php" method="post">                                
+                                    <div class="container">
+                                        <a href="{% url 'login-register' %}">
+                                            <button type="button">Login for reply</button>
+                                        </a>  
+                                    </div>
+                                  </form>                                 
+                                {% endif %}
+                            </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
+   

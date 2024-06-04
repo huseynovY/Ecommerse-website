@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% load static tags %}
+{% block content %}
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({% static 'images/bg/2.jpg' %}) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">Shop Page</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">Shop Page</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area --> 
+        <!-- Start Our Product Area -->
+        <section class="htc__product__area shop__page ptb--130 bg__white">
+            <div class="container">
+                <div class="htc__product__container">
+                    <!-- Start Product MEnu -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="filter__menu__container">
+                                <div class="product__menu">
+                                    {% for category in categories %}
+                                    {% if forloop.counter <= 5 %}
+                                        <a href="{% url 'shop' %}?category={{ category.id }}" style="font-size: 25px; padding-right: 10px;">
+                                            {{ category.title }} 
+                                        </a>
+                                    {% endif %}
+                                    {% endfor %}     
+                                </div>
+                                <div class="filter__box">
+                                    <a class="filter__menu" href="#">filter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Filter Menu -->
+                    <div class="filter__wrap">
+                        <div class="filter__cart">
+                            <div class="filter__cart__inner">
+                                <div class="filter__menu__close__btn">
+                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                </div>
+                                <div class="filter__content">
+                                    <!-- Start Single Content -->
+                                    <div class="fiter__content__inner">
+                                        <div class="single__filter">
+                                            <h2>Category</h2>
+                                            <ul class="filter__list" id="categoryList">
+                                                {% for category in categories %}
+                                                <li class="{% if forloop.counter > 5 %}hidden-category{% endif %}">
+                                                    <a href="{% url 'shop' %}?category={{category.id}}">{{ category }}</a>
+                                                </li>
+                                                {% endfor %}
+                                                {% if categories|length > 5 %}
+                                                <li>
+                                                    <a href="#" id="showMoreCategories">Show More</a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                            <script>
+                                                document.getElementById('showMoreCategories').addEventListener('click', function(event) {
+                                                    event.preventDefault();
+                                                    document.querySelectorAll('.hidden-category').forEach(function(elem) {
+                                                        elem.classList.remove('hidden-category');
+                                                    });
+                                                    this.parentNode.style.display = 'none'; // Hide the "Show More" button after clicking
+                                                });
+                                            </script>
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>Size</h2>
+                                            <ul class="filter__list">
+                                                {% for size in sizes %}
+                                                <li {% if forloop.counter > 5 %}style="display: none;"{% endif %}>
+                                                    <a href="{% url 'shop' %}?size={{size.id}}">{{ size }}</a>
+                                                </li>
+                                                {% endfor %}
+                                                {% if sizes|length > 5 %}
+                                                <li>
+                                                    <a href="#" id="showMoreSizes">Show More</a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                            <script>
+                                                document.getElementById('showMoreSizes').addEventListener('click', function(event) {
+                                                    event.preventDefault();
+                                                    document.querySelectorAll('.filter__list li:nth-child(n+6)').forEach(function(elem) {
+                                                        elem.style.display = 'list-item';
+                                                    });
+                                                    this.style.display = 'none';
+                                                });
+                                            </script>
+                                            
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>Tags</h2>
+                                            <ul class="filter__list">
+                                                <ul class="filter__list sidebar__list">
+                                                    {% for tag in tags %}
+                                                    <li {% if forloop.counter > 5 %}style="display: none;"{% endif %}>
+                                                        <a href="{% url 'shop' %}?tag={{tag.id}}">{{ tag }}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                    {% if tags|length > 5 %}
+                                                    <li>
+                                                        <a href="#" id="showMoreTags">Show More</a>
+                                                    </li>
+                                                    {% endif %}
+                                                </ul>
+                                                <script>
+                                                    document.getElementById('showMoreTags').addEventListener('click', function(event) {
+                                                        event.preventDefault();
+                                                        document.querySelectorAll('.filter__list.sidebar__list li:nth-child(n+6)').forEach(function(elem) {
+                                                            elem.style.display = 'list-item';
+                                                        });
+                                                        this.style.display = 'none';
+                                                    });
+                                                </script>
+                                            </ul>
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>Color</h2>
+                                            <ul class="filter__list sidebar__list">
+                                                {% for color in colors %}
+                                                <li class="black" {% if forloop.counter > 5 %}style="display: none;"{% endif %}>
+                                                    <a href="{% url 'shop' %}?color={{ color.id }}">
+                                                        <i class="zmdi zmdi-circle" style="color: {{ color.hex_code }};"></i>{{ color }}
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+                                                {% if colors|length > 5 %}
+                                                <li class="black">
+                                                    <a href="#" id="showMoreColors">Show More</a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                            <script>
+                                                document.getElementById('showMoreColors').addEventListener('click', function(event) {
+                                                    event.preventDefault();
+                                                    document.querySelectorAll('.filter__list.sidebar__list li:nth-child(n+6)').forEach(function(elem) {
+                                                        elem.style.display = 'list-item';
+                                                    });
+                                                    this.style.display = 'none';
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>  
+                                    <!-- End Single Content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Filter Menu -->
+                    <!-- End Product MEnu -->
+                    <div class="row">
+                        <div class="product__list another-product-style">
+                            {% include 'includes/messages.html' %}
+                            {% for product in products %}
+                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12" style="padding-right: 45px;" >
+                                <div class="product foo">
+                                    <div class="product__inner">
+                                        <div class="pro__thumb">
+                                            <a href="{{ product.get_absolute_url }}">
+                                                <img class="product-image" src="{{ product.image.url }}" style="height:250px" alt="product images">
+                                            </a>
+                                        </div>
+                                        <div class="product__hover__info">
+                                            <ul class="product__action">
+                                                <li data-product="{{product.id}}" ><a title="Add TO Cart" data-product="{{product.id}}" class="addToCart"><span data-product="{{product.id}}" class="ti-shopping-cart"></span></a></li>
+                                                <li data-product="{{product.id}}" ><a title="Add TO Wishlist" data-product="{{product.id}}" class="addToWishlist"><span data-product="{{product.id}}" class="ti-heart"></span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product__details">
+                                        <h2><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h2>
+                                        <ul class="product__price">
+                                            <li class="new__price">${{ product.price }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}   
+                        </div>
+                    </div>
+                    <!-- Start Load More BTn -->
+                    <div class="row mt--60">
+                        <div class="col-md-12">
+                            <div class="pagination">
+                                {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                                {% endif %}
+                                {% for page in page_obj.paginator.page_range %}
+                                {% if page is page_obj.number %} 
+                                <a class="active">{{page}}</a>
+                                {% else %}
+                                <a href="?page={{page}}">{{page}}</a>
+                                {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                                {% endif %}
+                              </div>
+                        </div>
+                    </div>
+                    
+                    <!-- End Load More BTn -->
+                </div>
+            </div>
+        </section>
+{% endblock %} 

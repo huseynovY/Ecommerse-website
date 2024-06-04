@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+        <!-- End Offset Wrapper -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({% static 'images/bg/2.jpg'%}) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">{{ blog.title }}</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home'%}">Home</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">right sidebar</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Our Blog Area -->
+        <section class="blog-details-wrap ptb--120 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                        <div class="blog-details-left-sidebar">
+                            <div class="blog-details-top">
+                                <!--Start Blog Thumb -->
+                                <div class="blog-details-thumb-wrap">
+                                    <div class="blog-details-thumb">
+                                        <img src={{ blog.image.url }} alt="blog images" style="height: 600px; width: 600px;">
+                                    </div>
+                                    <div class="upcoming-date">
+                                        {{ blog.created_at | date:"d" }}<span class="upc-mth"> {{ blog.created_at | date:"M Y" }}</span>
+                                    </div>
+                                </div>
+                                <!--End Blog Thumb -->
+                                <h2>{{ blog.smalldescription }}</h2>
+                                <div class="blog-admin-and-comment">
+                                    <p>BY : <a href="#">{{ blog.user }}</a></p>
+                                    <p class="separator">|</p>
+                                    <p>3 COMMENTS</p>
+                                </div>
+                                <!-- Start Blog Pra -->
+                                <div class="blog-details-pra">
+                                    <p>{{ blog.description }}</p>
+                                </div>
+                                <!-- End Blog Pra -->
+                                <!-- Start Blog Tags -->
+                                <div class="postandshare">
+                                    <div class="post">
+                                        <p>TAGS :</p>
+                                    </div>
+                                    <div class="blog-social-icon">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- End Blog Tags -->
+                                <!-- Start Blog Comment Area -->
+                                <div class="our-blog-comment mt--20">
+                                    <div class="blog-comment-inner">
+                                        <h2 class="section-title-2"> {{ blog.comments.count }} comment</h2>
+                                        <!-- Start Single Comment -->
+
+                                        {% for comment in blog.comments.all %}
+                                        {%  if not comment.parent %}
+                                        <div class="single-blog-comment">
+                                            <div class="blog-comment-thumb">
+                                                <img src="{{ comment.user.get_image }}" alt="comment images">
+                                            </div>  
+                                            <div class="blog-comment-details">
+                                                <div class="comment-title-date">
+                                                    <h2><a href="#">{{ comment.user.get_full_name }}</a></h2>
+                                                    <div class="reply">
+                                                        <p>{{ comment.created_at }}<a href="#">REPLY</a></p>
+                                                    </div>
+                                                </div>
+                                                <p>{{ comment.message }}</p>
+                                            </div>
+                                        </div>
+                                        <!-- End Single Comment -->
+                                        <!-- Start Single Comment -->
+                                        {% for child in comment.children.all %}
+                                        <div class="single-blog-comment comment-reply">
+                                            <div class="blog-comment-thumb">
+                                                <img src="{{ child.user.get_image }}" alt="comment images">
+                                            </div>
+                                            <div class="blog-comment-details">
+                                                <div class="comment-title-date">
+                                                    <h2><a href="#">{{ child.user.get_full_name }}</a></h2>
+                                                    <div class="reply">
+                                                        <p>{{ child.created_at}}<a href="#">REPLY</a></p>
+                                                    </div>
+                                                </div>
+                                                <p>{{ child.message }}</p> <button>
+                                                    <p><a href="#" class="reply replyButton" id="replyButton">Reply</a></p>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+
+                                        {% endif %}
+                                        {% endfor %}    
+                                        <!-- End Single Comment -->
+                                    </div>
+                                </div>
+                                <!-- End Blog Comment Area -->
+                                <!-- Start Reply Form -->
+                                {% if request.user.is_authenticated %}
+                                <div class="our-reply-form-area mt--20">
+                                    <h2 class="section-title-2">LEAVE A REPLY</h2>
+                                    <form action="" method="post">
+                                        <div class="reply-form-inner mt--40">
+                                            {% csrf_token %}
+    
+                                            <div class="reply-form-box">
+                                                <!-- <textarea name="message" placeholder="Message"></textarea> -->
+                                                {{form.message}}
+                                            </div>  
+                                            <div class="blog__details__btn">
+                                                <!-- <a type="submit" class="htc__btn btn--gray" href="">submit</a> -->
+                                                <input type="submit" value="Send">
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                <form action="action_page.php" method="post">                                
+                                    <div class="container">
+                                        <a href="{% url 'login-register' %}">
+                                            <button type="button">Login for reply</button>
+                                        </a>  
+                                    </div>
+                                  </form>                                 
+                                {% endif %}
+                                <!-- End Reply Form -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 smt-30 xmt-40">
+                        <div class="blod-details-right-sidebar">
+                            <div class="category-search-area">
+                                <form action="{% url 'blog' %}" class="search-form" method="get">
+                                    <input placeholder="Search......" type="text" name="searched">
+                                </form>
+                            </div>
+                            <!-- Start Category Area -->
+                            <div class="our-category-area mt--60">
+                                <h2 class="section-title-2">CATEGORY</h2>
+                                <ul class="categore-menu">
+                                    {% for category in categories %}
+                                    <li><a href="{% url 'blog' %}?category={{category.id}}"><i class="zmdi zmdi-caret-right"></i>{{ category.title }} <span>({{ category.blogs.count }})</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- End Category Area --> 
+                            <!-- Start Letaest Blog Area -->
+                            
+                            <!-- End Letaest Blog Area -->
+                            <!-- Start Tag -->
+                            <div class="our-blog-tag">
+                                <h2 class="section-title-2">TAGS</h2>
+                                <ul class="tag-menu mt-40">
+                                {% for tag in tags %}
+                                    <li><a href="{% url 'blog' %}?tag={{tag.id}}">{{ tag.title }}</a></li>
+                                {% endfor %}
+                                </ul>
+                            </div>  
+                            <!-- End Tag -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Our Blog Area -->  
+
+        <!-- Start Footer Area -->
+{% endblock%}

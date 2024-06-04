@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-12 14:45+0000\n"
+"PO-Revision-Date: 2024-02-15 15:18+0000\n"
+"Last-Translator: John Doe <admin@google.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: core/forms.py:18
+msgid "Your name"
+msgstr "Ad"
+
+#: core/forms.py:22
+#| msgid "Your name"
+msgid "Your Email"
+msgstr "email"
+
+#: core/forms.py:26
+msgid "Subject"
+msgstr "Mövzu"
+
+#: core/forms.py:30
+msgid "Message"
+msgstr "Mesaj"
+
+#: core/templates/base.html:65
+msgid "Home"
+msgstr "Ana səhifə"
+
+#: core/templates/base.html:67
+msgid "Profile"
+msgstr "Profil"
+
+#: core/templates/base.html:70
+msgid "Blog"
+msgstr "Bloq"
+
+#: core/templates/base.html:73
+msgid "Shop"
+msgstr "Mağaza"
+
+#: core/templates/base.html:81
+msgid "pages"
+msgstr "Səhifələr"
+
+#: core/templates/base.html:83
+msgid "about"
+msgstr "Haqqımızda"
+
+#: core/templates/base.html:84
+msgid "testimonials"
+msgstr "İfadələr"
+
+#: core/templates/base.html:86
+msgid "customer review"
+msgstr "Müştəri baxışı"
+
+#: core/templates/base.html:89
+msgid "shop"
+msgstr "Mağaza"
+
+#: core/templates/base.html:90
+msgid "cart"
+msgstr "Kart"
+
+#: core/templates/base.html:91
+msgid "wishlist"
+msgstr "Bəyənilənlər"
+
+#: core/templates/base.html:92
+msgid "checkout"
+msgstr "Ödəniş"
+
+#: core/templates/base.html:93
+msgid "team"
+msgstr "Komanda"
+
+#: core/templates/base.html:94
+msgid "login & register"
+msgstr "Giriş və Qeydiyyat"
+
+#: core/templates/base.html:97
+msgid "contact"
+msgstr "Bizimlə Əlaqə"
+
+#: core/views.py:20
+msgid "Successfully sent!"
+msgstr "Uğurla göndərildi"

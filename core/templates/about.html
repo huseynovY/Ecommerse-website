@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <!-- End Offset Wrapper -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url({% static 'images/bg/2.jpg' %}) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">About Us</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">About Us</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area --> 
+        <!-- Start Our Store Area -->
+        <section class="htc__store__area ptb--120 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section__title section__title--2 text-center">
+                            <h2 class="title__line">Welcome To Tmart Store</h2>
+                            <p>At Tmart, we understand that fashion is more than just clothing – it's a form of self-expression and empowerment. That's why we're committed to offering you not only the latest trends but also pieces that reflect your unique personality and flair.</p>
+                        </div>
+                        <div class="store__btn">
+                            <a href="{% url 'contact' %}">contact us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Our Store Area -->
+        <!-- Start Choose Us Area -->
+        <section class="htc__choose__us__ares bg__white">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="htc__choose__wrap bg__cat--4">
+                            <h2 class="choose__title">Why Choose Us?</h2>
+                            <div class="choose__container">
+                                <div class="single__chooose">
+                                    <div class="choose__us">
+                                        <div class="choose__icon">
+                                            <span class="ti-heart"></span>
+                                        </div>
+                                        <div class="choose__details">
+                                            <h4>Free Gift Box</h4>
+                                        </div>
+                                    </div>
+                                    <div class="choose__us">
+                                        <div class="choose__icon">
+                                            <span class="ti-truck"></span>
+                                        </div>
+                                        <div class="choose__details">
+                                            <h4>Free Delivery</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single__chooose">
+                                    <div class="choose__us">
+                                        <div class="choose__icon">
+                                            <span class="ti-reload"></span>
+                                        </div>
+                                        <div class="choose__details">
+                                            <h4>Money Back</h4>
+                                        </div>
+                                    </div>
+                                    <div class="choose__us">
+                                        <div class="choose__icon">
+                                            <span class="ti-time"></span>
+                                        </div>
+                                        <div class="choose__details">
+                                            <h4>Support 24/7</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Choose Us Area -->
+        <!-- Start Our Team Area -->
+        <section class="htc__team__area bg__white ptb--120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section__title section__title--2 text-center">
+                            <h2 class="title__line">Our Blogs</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="team__wrap clearfix mt--60">
+                        {% for blog in blogs %}
+                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                            <div class="blog foo">
+                                <div class="blog__inner">
+                                    <div class="blog__thumb">
+                                        <a href="{{ blog.get_absolute_url }}">
+                                            <img src="{{ blog.image.url }}" alt="blog images" style="height: 300px; width: 300px;">
+                                        </a>
+                                        <div class="blog__post__time">
+                                            <div class="post__time--inner">
+                                                {{ blog.created_at | date:"d M Y" }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="blog__hover__info">
+                                        <div class="blog__hover__action">
+                                            <p class="blog__des"><a href="{{ blog.get_absolute_url }}">{{ blog.smalldescription }}</a></p>
+                                            <ul class="bl__meta">
+                                                <li>By :<a href="#">{{ blog.user }}</a></li>
+                                                <li>{{ blog.title }}</li>
+                                            </ul>
+                                            <div class="blog__btn">
+                                                <a class="read__more__btn" href="{{ blog.get_absolute_url }}">read more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
